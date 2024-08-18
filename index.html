@@ -78,35 +78,31 @@
       	const countDownDate = new Date('Oct 14, 2025 23:59:59').getTime();
 	  
 	const updateTime = () => {
-	          // Get today's date and time
-        const now = new Date().getTime();
+		const now = new Date().getTime();
+		const distance = countDownDate - now;
 
-        // Find the distance between now and the count down date
-        const distance = countDownDate - now;
 
-        // Time calculations for days, hours, minutes and seconds
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  		const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  		const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  		const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // Output the result in an element with id="demo"
-        document.getElementById('demo').innerHTML =
-          days + 'd ' + hours.toString().padStart(2, "0") + 'h ' + minutes.toString().padStart(2, "0") + 'm ' + seconds.toString().padStart(2, "0") + 's ';
+		const hoursDisplay = hours.toString().padStart(2, "0");
+		const minutesDisplay = minutes.toString().padStart(2, "0");
+		const secondsDisplay = seconds.toString().padStart(2, "0");
 
-        // If the count down is over, write some text
-        if (distance < 0) {
-          clearInterval(x);
-          document.getElementById('demo').innerHTML = 'YASSSSS';
-        }
-	  };
-	  updateTime();
-      // Update the count down every 1 second
-      const x = setInterval(function() {
-			updateTime();
-      }, 1000);
+		const demoElement = document.getElementById('demo');
+  		demoElement.innerHTML = `${days}d ${hoursDisplay}h ${minutesDisplay}m ${secondsDisplay}s`;
+
+	        if (distance <= 0) {
+		  demoElement.innerHTML = "YASSSSS";
+        	  clearInterval(x);
+        	}
+	  }
+	    
+      updateTime();
+
+      setInterval(()=> updateTime(), 1000);
 	  
 	  
     </script>
